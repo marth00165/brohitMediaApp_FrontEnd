@@ -13,7 +13,6 @@ import { Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 const avatarArr = [Avatar1, Avatar2];
-
 const styles = {
   form: {
     textAlign: "center",
@@ -67,6 +66,7 @@ class Login extends Component {
     axios
       .post("/login", userData)
       .then((res) => {
+        localStorage.setItem("FBIdToken", `Bearer ${res.data.token}`);
         console.log(res.data);
         this.setState({
           loading: false,
