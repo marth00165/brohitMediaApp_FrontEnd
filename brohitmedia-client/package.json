@@ -39,5 +39,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://us-central1-brohitmedia2.cloudfunctions.net/api"
+  "proxy": "https://us-central1-brohitmedia2.cloudfunctions.net/api",
+  "devDependencies": {
+    "prop-types": "^15.7.2"
+  }
 }

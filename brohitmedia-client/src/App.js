@@ -8,6 +8,8 @@ import jwtDecode from "jwt-decode";
 // Redux
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import { SET_AUTHENTICATED } from "./redux/types";
+import { logoutUser, getUserData } from "./redux/actions/userActions";
 
 // Pages
 import Home from "./Pages/home";
@@ -17,15 +19,21 @@ import Login from "./Pages/login";
 // Components
 import NavBar from "./Components/NavBar";
 import Authroute from "./util/Authroute";
+import axios from "axios";
 
 const theme = createMuiTheme(themeObject);
 
-let authenticated;
-const token = localStorage.getItem("FBIdToken");
-
+const token = localStorage.FBIdToken;
 if (token) {
   const decodedToken = jwtDecode(token);
-  authenticated = decodedToken.exp * 1000 >= Date.now();
+  if (decodedToken.exp * 1000 < Date.now()) {
+    store.dispatch(logoutUser());
+    window.location.href = "/login";
+  } else {
+    store.dispatch({ type: SET_AUTHENTICATED });
+    axios.defaults.headers.common["Authorization"] = token;
+    store.dispatch(getUserData());
+  }
 }
 
 const App = () => {
@@ -37,18 +45,8 @@ const App = () => {
           <div className={"container"}>
             <Switch>
               <Route exact path={"/"} component={Home} />
-              <Authroute
-                exact
-                path={"/login"}
-                component={Login}
-                authenticated={authenticated}
-              />
-              <Authroute
-                exact
-                path={"/signup"}
-                component={Signup}
-                authenticated={authenticated}
-              />
+              <Authroute exact path={"/login"} component={Login} />
+              <Authroute exact path={"/signup"} component={Signup} />
             </Switch>
           </div>
         </Router>
