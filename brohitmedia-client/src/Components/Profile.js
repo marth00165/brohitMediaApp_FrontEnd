@@ -21,6 +21,7 @@ import KeyboardReturn from "@material-ui/icons/KeyboardReturn";
 import LinkIcon from "@material-ui/icons/Link";
 import LocationOn from "@material-ui/icons/LocationOn";
 import EditIcon from "@material-ui/icons/Edit";
+import MyButton from "../util/MyButton";
 
 const styles = (theme) => ({
   ...theme.spreadThis,
@@ -62,14 +63,13 @@ class Profile extends Component {
                 id={"imageInput"}
                 onChange={this.handleImageChange}
               />
-              <Tooltip title={"Edit Profile Image"} placement={"top"}>
-                <IconButton
-                  onClick={this.handleEditPicture}
-                  className={"button"}
-                >
-                  <EditIcon color={"primary"} />
-                </IconButton>
-              </Tooltip>
+              <MyButton
+                tip="Edit profile picture"
+                onClick={this.handleEditPicture}
+                btnClassName="button"
+              >
+                <EditIcon color="primary" />
+              </MyButton>
             </div>
             <hr />
             <div className={"profile-details"}>
@@ -108,11 +108,9 @@ class Profile extends Component {
               <CalendarToday color={"primary"} />{" "}
               <span>Joined {dayjs(createdAt).format("MMM YYYY")}</span>
             </div>
-            <Tooltip title={"logout"} placement={"top"}>
-              <IconButton className={"button"} onClick={this.handleLogout}>
-                <KeyboardReturn color={"primary"} />
-              </IconButton>
-            </Tooltip>
+            <MyButton tip="Logout" onClick={this.handleLogout}>
+              <KeyboardReturn color="primary" />
+            </MyButton>
             <EditDetails />
           </div>
         </Paper>

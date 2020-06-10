@@ -20,6 +20,11 @@ import { loginUser } from "../redux/actions/userActions";
 const avatarArr = [Avatar1, Avatar2];
 const styles = (theme) => ({
   ...theme.spreadThis,
+  image: {
+    borderRadius: "50%",
+    height: "150px",
+    width: "150px",
+  },
 });
 
 class Login extends Component {
@@ -116,6 +121,7 @@ class Login extends Component {
                 <CircularProgress size={30} className={classes.progress} />
               )}
             </Button>
+            <br />
             <br />
             <small>
               Don't have an account? <Link to={"/signup"}>Sign Up!</Link>
