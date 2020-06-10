@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
+import { uploadImage, logoutUser } from "../redux/actions/userActions";
+import EditDetails from "../Components/EditDetails.js";
 
 // MUI Stuff
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -10,75 +12,18 @@ import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import MuiLink from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
-import LocationOn from "@material-ui/icons/LocationOn";
-import LinkIcon from "@material-ui/icons/Link";
-import CalendarToday from "@material-ui/icons/CalendarToday";
 import IconButton from "@material-ui/core/IconButton";
-import EditIcon from "@material-ui/icons/Edit";
 import Tooltip from "@material-ui/core/Tooltip";
-import { uploadImage, logoutUser } from "../redux/actions/userActions";
 
 // Icons
+import CalendarToday from "@material-ui/icons/CalendarToday";
+import KeyboardReturn from "@material-ui/icons/KeyboardReturn";
+import LinkIcon from "@material-ui/icons/Link";
+import LocationOn from "@material-ui/icons/LocationOn";
+import EditIcon from "@material-ui/icons/Edit";
 
 const styles = (theme) => ({
-  button: {
-    marginTop: 20,
-    position: "relative",
-  },
-  invisibleSeparator: {
-    border: "none",
-    margin: 4,
-  },
-  visibleSeparator: {
-    width: "100%",
-    borderBottom: "1px solid rgba(0,0,0,0.1)",
-    marginBottom: 20,
-  },
-  paper: {
-    padding: 20,
-  },
-  profile: {
-    "& .image-wrapper": {
-      textAlign: "center",
-      position: "relative",
-      "& button": {
-        position: "absolute",
-        top: "80%",
-        left: "70%",
-      },
-    },
-    "& .profile-image": {
-      width: 200,
-      height: 200,
-      objectFit: "cover",
-      maxWidth: "100%",
-      borderRadius: "50%",
-    },
-    "& .profile-details": {
-      textAlign: "center",
-      "& span, svg": {
-        verticalAlign: "middle",
-      },
-      "& a": {
-        color: "#00bcd4",
-      },
-    },
-    "& hr": {
-      border: "none",
-      margin: "0 0 10px 0",
-    },
-    "& svg.button": {
-      "&:hover": {
-        cursor: "pointer",
-      },
-    },
-  },
-  buttons: {
-    textAlign: "center",
-    "& a": {
-      margin: "20px 10px",
-    },
-  },
+  ...theme.spreadThis,
 });
 class Profile extends Component {
   handleEditPicture = () => {
@@ -91,6 +36,10 @@ class Profile extends Component {
     formData.append("image", image, image.name);
     this.props.uploadImage(formData);
     // send to server
+  };
+
+  handleLogout = () => {
+    this.props.logoutUser();
   };
   render() {
     const {
@@ -159,6 +108,12 @@ class Profile extends Component {
               <CalendarToday color={"primary"} />{" "}
               <span>Joined {dayjs(createdAt).format("MMM YYYY")}</span>
             </div>
+            <Tooltip title={"logout"} placement={"top"}>
+              <IconButton className={"button"} onClick={this.handleLogout}>
+                <KeyboardReturn color={"primary"} />
+              </IconButton>
+            </Tooltip>
+            <EditDetails />
           </div>
         </Paper>
       ) : (

@@ -18,35 +18,9 @@ import { connect } from "react-redux";
 import { loginUser } from "../redux/actions/userActions";
 
 const avatarArr = [Avatar1, Avatar2];
-const styles = {
-  form: {
-    textAlign: "center",
-  },
-  image: {
-    height: "100px",
-    width: "100px",
-    borderRadius: "50%",
-    margin: "20px auto 20px auto",
-  },
-  pageTitle: {
-    margin: "10px auto 10px auto",
-  },
-  textField: {
-    margin: "10px auto 10px auto",
-  },
-  button: {
-    marginTop: 20,
-    position: "relative",
-  },
-  customError: {
-    color: "red",
-    fontSize: "0.8rem",
-    marginTop: 10,
-  },
-  progress: {
-    position: "absolute",
-  },
-};
+const styles = (theme) => ({
+  ...theme.spreadThis,
+});
 
 class Login extends Component {
   state = {
