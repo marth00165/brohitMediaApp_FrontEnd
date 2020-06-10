@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import Post from "../Components/Post";
+import Profile from "../Components/Profile";
 
 class Home extends Component {
   state = {
@@ -34,7 +35,7 @@ class Home extends Component {
           {recentPostsMarkup}
         </Grid>{" "}
         <Grid item sm={4} xs={12}>
-          <p>Profile...</p>
+          <Profile />
         </Grid>
       </Grid>
     );

@@ -4,7 +4,7 @@ export default {
       main: "#607d8b",
     },
     secondary: {
-      main: "#607d8b",
+      main: "#b0bec5",
     },
   },
   typography: {
