@@ -20,9 +20,11 @@ import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 // Redux
 import { connect } from "react-redux";
 import { getPosts, likePost, unlikePost } from "../redux/actions/dataActions";
+import DeletePost from "./DeletePost";
 
 const styles = {
   card: {
+    position: "relative",
     display: "flex",
     marginBottom: 20,
   },
@@ -56,9 +58,41 @@ class Post extends Component {
     dayjs.extend(relativeTime);
     const {
       classes,
-      post: { body, createdAt, userImage, userHandle, likeCount, commentCount },
-      user: { authenticated },
+      post: {
+        body,
+        createdAt,
+        userImage,
+        userHandle,
+        likeCount,
+        commentCount,
+        postId,
+      },
+      user: {
+        authenticated,
+        credentials: { handle },
+      },
     } = this.props;
+
+    const likeButton = !authenticated ? (
+      <MyButton tip={"Like"}>
+        <Link to={"login"}>
+          <FavoriteBorder color={"primary"} />
+        </Link>
+      </MyButton>
+    ) : this.likedPost() ? (
+      <MyButton tip={"Unlike"} onClick={this.unlikePost}>
+        <FavoriteIcon color={"primary"} />
+      </MyButton>
+    ) : (
+      <MyButton tip={"Like"} onClick={this.likePost}>
+        <FavoriteBorder color={"primary"} />
+      </MyButton>
+    );
+
+    const deleteButton =
+      authenticated && userHandle === handle ? (
+        <DeletePost postId={postId} />
+      ) : null;
     return (
       <Card className={classes.card}>
         <CardMedia
@@ -75,25 +109,12 @@ class Post extends Component {
           >
             {userHandle}
           </Typography>
+          {deleteButton}
           <Typography variant={"body2"} color={"textSecondary"}>
             {dayjs(createdAt).fromNow()}
           </Typography>
           <Typography variant={"body1"}>{body}</Typography>
-          {!authenticated ? (
-            <MyButton tip={"Like"}>
-              <Link to={"login"}>
-                <FavoriteBorder color={"primary"} />
-              </Link>
-            </MyButton>
-          ) : this.likedPost() ? (
-            <MyButton tip={"Unlike"} onClick={this.unlikePost}>
-              <FavoriteIcon color={"primary"} />
-            </MyButton>
-          ) : (
-            <MyButton tip={"Like"} onClick={this.likePost}>
-              <FavoriteBorder color={"primary"} />
-            </MyButton>
-          )}
+          {likeButton}
           <span>{likeCount} Likes</span>
           <MyButton tip={"comments"}>
             <ChatIcon color={"primary"} />
