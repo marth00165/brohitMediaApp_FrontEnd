@@ -4,6 +4,7 @@ import {
   UNLIKE_POST,
   LOADING_DATA,
   DELETE_POST,
+  CREATE_POST,
 } from "../types";
 
 const initialState = {
@@ -34,15 +35,20 @@ export default function (state = initialState, action) {
       };
     case LIKE_POST:
     case UNLIKE_POST:
-      index = state.posts.findIndex(
+      let postindex = state.posts.findIndex(
         (post) => post.postId === action.payload.postId
       );
-      state.posts[index] = action.payload;
+      state.posts[postindex] = action.payload;
       if (state.post.postId === action.payload.postId) {
         state.post = action.payload;
       }
       return {
         ...state,
+      };
+    case CREATE_POST:
+      return {
+        ...state,
+        posts: [action.payload, ...state.posts],
       };
 
     default:
