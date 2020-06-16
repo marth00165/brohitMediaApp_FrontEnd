@@ -5,11 +5,13 @@ import MyButton from "../util/MyButton";
 
 // Redux stuff
 import { connect } from "react-redux";
-import { createPost, getPosts } from "../redux/actions/dataActions";
+import {
+  createPost,
+  getPosts,
+  clearErrors,
+} from "../redux/actions/dataActions";
 
 // MUI stuff
-import Tooltip from "@material-ui/core/Tooltip";
-import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -23,14 +25,16 @@ const styles = (theme) => ({
   ...theme.spreadThis,
   submitButton: {
     position: "relative",
+    float: "right",
+    marginTop: 10,
   },
   progressSpinner: {
     position: "absolute",
   },
   closeButton: {
     position: "absolute",
-    left: "90%",
-    top: "10%",
+    left: "91%",
+    top: "6%",
   },
 });
 
@@ -48,10 +52,7 @@ class CreatePost extends Component {
       });
     }
     if (!nextProps.UI.errors && !nextProps.UI.loading) {
-      this.setState({
-        body: "",
-      });
-      this.handleClose();
+      this.setState({ body: "", open: false });
     }
   }
 
@@ -64,9 +65,8 @@ class CreatePost extends Component {
   handleClose = () => {
     this.setState({
       open: false,
-      errors: {},
     });
-    this.props.getPosts();
+    this.props.clearErrors();
   };
 
   handleChange = (event) => {
@@ -147,13 +147,13 @@ class CreatePost extends Component {
 CreatePost.propTypes = {
   UI: PropTypes.object.isRequired,
   createPost: PropTypes.func.isRequired,
-  getPosts: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   UI: state.UI,
 });
 
-export default connect(mapStateToProps, { createPost, getPosts })(
+export default connect(mapStateToProps, { createPost, clearErrors })(
   withStyles(styles)(CreatePost)
 );
