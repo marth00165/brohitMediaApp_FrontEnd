@@ -5,6 +5,7 @@ import {
   LOADING_DATA,
   DELETE_POST,
   CREATE_POST,
+  SET_POST,
 } from "../types";
 
 const initialState = {
@@ -18,6 +19,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         loading: true,
+      };
+    case SET_POST:
+      return {
+        ...state,
+        post: action.payload,
+        loading: false,
       };
     case SET_POSTS:
       return {
