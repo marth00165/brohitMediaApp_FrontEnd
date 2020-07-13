@@ -16,6 +16,7 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import UnfoldMore from "@material-ui/icons/UnfoldMore";
+import CloseIcon from "@material-ui/icons/Close";
 // Redux
 
 import { connect } from "react-redux";
@@ -23,6 +24,28 @@ import { getPost } from "../redux/actions/dataActions";
 
 const styles = (theme) => ({
   ...theme.spreadThis,
+  profileImage: {
+    maxWidth: 200,
+    height: 200,
+    borderRadius: "50%",
+    objectFit: "cover",
+  },
+  dialogContent: {
+    padding: 20,
+  },
+  closeButton: {
+    position: "absolute",
+    left: "90%",
+  },
+  expandButton: {
+    position: "absolute",
+    left: "90%",
+  },
+  spinnerDiv: {
+    textAlign: "center",
+    marginTop: 50,
+    marginBottom: 50,
+  },
 });
 
 class PostDialog extends Component {
@@ -62,7 +85,11 @@ class PostDialog extends Component {
     ) : (
       <Grid container spacing={16}>
         <Grid item sm={5}>
-          <img src={userImage} alt={"Profile"} className={""} />
+          <img
+            src={userImage}
+            alt={"Profile"}
+            className={classes.profileImage}
+          />
         </Grid>
         <Grid item sm={7}>
           <Typography
@@ -84,16 +111,27 @@ class PostDialog extends Component {
     );
     return (
       <Fragment>
-        <myButton onClick={this.handleOpen} tip={"Expand Post"}>
-          <UnfoldMore color={"primary"} />
-        </myButton>
+        <MyButton
+          onClick={this.handleOpen}
+          tip="Expand scream"
+          tipClassName={classes.expandButton}
+        >
+          <UnfoldMore color="primary" />
+        </MyButton>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
           fullWidth
-          maxWidth={"sm"}
+          maxWidth="sm"
         >
-          <DialogContent className={classes.DialogContent}>
+          <MyButton
+            tip="Close"
+            onClick={this.handleClose}
+            tipClassName={classes.closeButton}
+          >
+            <CloseIcon />
+          </MyButton>
+          <DialogContent className={classes.dialogContent}>
             {dialogMarkup}
           </DialogContent>
         </Dialog>
