@@ -17,10 +17,18 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import UnfoldMore from "@material-ui/icons/UnfoldMore";
 import CloseIcon from "@material-ui/icons/Close";
+
+// Icons
+import ChatIcon from "@material-ui/icons/Chat";
+
 // Redux
 
 import { connect } from "react-redux";
 import { getPost } from "../redux/actions/dataActions";
+
+// Components
+
+import LikeButton from "./LikeButton";
 
 const styles = (theme) => ({
   ...theme.spreadThis,
@@ -81,7 +89,9 @@ class PostDialog extends Component {
       UI: { loading },
     } = this.props;
     const dialogMarkup = loading ? (
-      <CircularProgress size={200} />
+      <div className={classes.spinnerDiv}>
+        <CircularProgress size={200} thickness={2} />
+      </div>
     ) : (
       <Grid container spacing={16}>
         <Grid item sm={5}>
@@ -106,6 +116,12 @@ class PostDialog extends Component {
           </Typography>
           <hr className={classes.invisibleSeparator} />
           <Typography variant={"body1"}>{body}</Typography>
+          <LikeButton postId={postId} />
+          <span>{likeCount} Likes</span>
+          <MyButton tip={"comments"}>
+            <ChatIcon color={"primary"} />
+          </MyButton>
+          <span>{commentCount} comments</span>
         </Grid>
       </Grid>
     );
