@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import MyButton from "../util/MyButton";
+import MyButton from "../../util/MyButton";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { likePost, unlikePost } from "../redux/actions/dataActions";
+import { likePost, unlikePost } from "../../redux/actions/dataActions";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 // Icons

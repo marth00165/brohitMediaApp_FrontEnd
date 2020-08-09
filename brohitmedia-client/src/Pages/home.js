@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import Post from "../Components/Post";
-import Profile from "../Components/Profile";
+import { Post } from "../Components/Post";
+import { Profile } from "../Components/Profile";
 import { connect } from "react-redux";
 import { getPosts } from "../redux/actions/dataActions";
 import PropTypes from "prop-types";
