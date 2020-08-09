@@ -6,10 +6,11 @@ import {
   DELETE_POST,
   LOADING_UI,
   SET_ERRORS,
-  CLEAR_ERRORS,
   CREATE_POST,
   SET_POST,
   STOP_LOADING_UI,
+  SUBMIT_COMMENT,
+  CLEAR_ERRORS,
 } from "../types";
 import axios from "axios";
 
@@ -86,6 +87,27 @@ export const unlikePost = (postId) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
+// Submit a comment
+
+export const submitComment = (postId, commentData) => (dispatch) => {
+  axios
+    .post(`/post/${postId}/comment`, commentData)
+    .then((res) => {
+      dispatch({
+        type: SUBMIT_COMMENT,
+        payload: res.data,
+      });
+      dispatch(clearErrors());
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data,
+      });
+    });
+};
+
 // delete post
 
 export const deletePost = (postId) => (dispatch) => {
@@ -103,9 +125,7 @@ export const deletePost = (postId) => (dispatch) => {
 // Clear Errors
 
 export const clearErrors = () => (dispatch) => {
-  dispatch({
-    type: CLEAR_ERRORS,
-  });
+  dispatch({ type: CLEAR_ERRORS });
 };
 
 // Get a Post

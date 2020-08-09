@@ -51,7 +51,6 @@ export class LikeButton extends Component {
 LikeButton.propTypes = {
   likePost: PropTypes.func.isRequired,
   unlikePost: PropTypes.func.isRequired,
-  getPosts: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
