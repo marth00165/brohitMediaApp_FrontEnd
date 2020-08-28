@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
+import DeleteComment from "./DeleteComment";
 
 // MUI
 
@@ -24,11 +25,13 @@ const styles = (theme) => ({
 
 class Comments extends Component {
   render() {
-    const { comments, classes } = this.props;
+    const { comments, classes, postId, handle } = this.props;
+    // const deleteButton = {}
+
     return (
       <Grid container>
         {comments.map((comment, index) => {
-          const { body, createdAt, userImage, userHandle } = comment;
+          const { body, createdAt, userImage, userHandle, commentId } = comment;
           return (
             <Fragment key={createdAt}>
               <Grid item sm={12}>
@@ -50,6 +53,9 @@ class Comments extends Component {
                       >
                         {userHandle}
                       </Typography>
+                      {userHandle === handle ? (
+                        <DeleteComment postId={postId} commentId={commentId} />
+                      ) : null}
                       <Typography variant="body2" color="textSecondary">
                         {dayjs(createdAt).format("h:mm a, MMMM DD YYYY")}
                       </Typography>

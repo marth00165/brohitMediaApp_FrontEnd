@@ -11,6 +11,7 @@ import {
   STOP_LOADING_UI,
   SUBMIT_COMMENT,
   CLEAR_ERRORS,
+  DELETE_COMMENT,
 } from "../types";
 import axios from "axios";
 
@@ -117,6 +118,20 @@ export const deletePost = (postId) => (dispatch) => {
       dispatch({
         type: DELETE_POST,
         payload: postId,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
+// delete comment
+
+export const deleteComment = (postId, commentId) => (dispatch) => {
+  axios
+    .delete(`/post/${postId}/${commentId}`)
+    .then(() => {
+      dispatch({
+        type: DELETE_COMMENT,
+        payload: {commentId, postId},
       });
     })
     .catch((err) => console.log(err));

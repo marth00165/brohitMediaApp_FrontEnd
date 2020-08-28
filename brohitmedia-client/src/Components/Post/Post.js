@@ -103,7 +103,7 @@ class Post extends Component {
             <ChatIcon color={"primary"} />
           </MyButton>
           <span>{commentCount} comments</span>
-          <PostDialog postId={postId} userHandle={userHandle} />
+          <PostDialog authenticated={authenticated} postId={postId} handle={handle} />
         </CardContent>
       </Card>
     );

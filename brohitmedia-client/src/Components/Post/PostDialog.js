@@ -90,6 +90,7 @@ class PostDialog extends Component {
         userHandle,
         comments,
       },
+      handle,
       UI: { loading },
     } = this.props;
     const dialogMarkup = loading ? (
@@ -129,7 +130,7 @@ class PostDialog extends Component {
         </Grid>
         <hr className={classes.visibleSeparator} />
         <CommentForm postId={postId} />
-        <Comments comments={comments} />
+        <Comments handle={handle} comments={comments} postId={postId} />
       </Grid>
     );
     return (
@@ -170,6 +171,7 @@ PostDialog.propTypes = {
   post: PropTypes.object.isRequired,
   UI: PropTypes.object.isRequired,
   clearErrors: PropTypes.func.isRequired,
+  handle: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({

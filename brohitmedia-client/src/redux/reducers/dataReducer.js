@@ -7,6 +7,7 @@ import {
   CREATE_POST,
   SET_POST,
   SUBMIT_COMMENT,
+  DELETE_COMMENT,
 } from "../types";
 
 const initialState = {
@@ -65,6 +66,19 @@ export default function (state = initialState, action) {
         post: {
           ...state.post,
           comments: [action.payload, ...state.post.comments],
+        },
+      };
+
+    case DELETE_COMMENT:
+      let commentIndex = state.post.comments.findIndex(
+        (comment) => comment.commentId === action.payload.commentId
+      );
+      state.post.comments.splice(commentIndex, 1);
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          comments: [...state.post.comments],
         },
       };
 
