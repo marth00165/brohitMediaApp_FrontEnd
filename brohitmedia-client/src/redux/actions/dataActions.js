@@ -131,10 +131,30 @@ export const deleteComment = (postId, commentId) => (dispatch) => {
     .then(() => {
       dispatch({
         type: DELETE_COMMENT,
-        payload: {commentId, postId},
+        payload: { commentId, postId },
       });
     })
     .catch((err) => console.log(err));
+};
+
+// Get User Data
+
+export const getUserData = (userHandle) => (dispatch) => {
+  dispatch({ type: LOADING_DATA });
+  axios
+    .get(`/user/${userHandle}`)
+    .then((result) => {
+      dispatch({
+        type: SET_POSTS,
+        payload: result.data.posts,
+      });
+    })
+    .catch(() => {
+      dispatch({
+        type: SET_POSTS,
+        payload: null,
+      });
+    });
 };
 
 // Clear Errors
