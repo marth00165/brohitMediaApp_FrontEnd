@@ -61,16 +61,38 @@ const styles = (theme) => ({
 class PostDialog extends Component {
   state = {
     open: false,
+    oldPath: "",
+    newPath: "",
   };
 
+  componentDidMount() {
+    if (this.props.openDialog) {
+      this.handleOpen();
+    }
+  }
+
   handleOpen = () => {
+    let oldPath = window.location.pathname;
+
+    const { userHandle, postId } = this.props;
+    const newPath = `users/${userHandle}/post/${postId}`;
+
+    if (oldPath === newPath) {
+      oldPath = `users/${userHandle}`;
+    }
+
+    window.history.pushState(null, null, newPath);
+
     this.setState({
       open: true,
+      oldPath,
+      newPath,
     });
     this.props.getPost(this.props.postId);
   };
 
   handleClose = () => {
+    window.history.pushState(null, null, this.state.oldPath);
     this.setState({
       open: false,
     });
@@ -98,7 +120,7 @@ class PostDialog extends Component {
         <CircularProgress size={200} thickness={2} />
       </div>
     ) : (
-      <Grid container spacing={16}>
+      <Grid container spacing={2}>
         <Grid item sm={5}>
           <img
             src={userImage}
@@ -130,7 +152,7 @@ class PostDialog extends Component {
         </Grid>
         <hr className={classes.visibleSeparator} />
         <CommentForm postId={postId} />
-        <Comments handle={handle} comments={comments} postId={postId} />
+        <Comments postUserHandle={userHandle} handle={handle} comments={comments} postId={postId} />
       </Grid>
     );
     return (
@@ -167,11 +189,11 @@ class PostDialog extends Component {
 PostDialog.propTypes = {
   getPost: PropTypes.func.isRequired,
   postId: PropTypes.string.isRequired,
-  userHandle: PropTypes.string.isRequired,
+  userHandle: PropTypes.string,
   post: PropTypes.object.isRequired,
   UI: PropTypes.object.isRequired,
   clearErrors: PropTypes.func.isRequired,
-  handle: PropTypes.string.isRequired,
+  handle: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({

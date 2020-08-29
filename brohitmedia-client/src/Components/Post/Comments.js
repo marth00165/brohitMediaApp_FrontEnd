@@ -25,7 +25,7 @@ const styles = (theme) => ({
 
 class Comments extends Component {
   render() {
-    const { comments, classes, postId, handle } = this.props;
+    const { comments, classes, postId, handle, postUserHandle } = this.props;
     // const deleteButton = {}
 
     return (
@@ -53,7 +53,7 @@ class Comments extends Component {
                       >
                         {userHandle}
                       </Typography>
-                      {userHandle === handle ? (
+                      {userHandle === handle || postUserHandle === handle ? (
                         <DeleteComment postId={postId} commentId={commentId} />
                       ) : null}
                       <Typography variant="body2" color="textSecondary">
