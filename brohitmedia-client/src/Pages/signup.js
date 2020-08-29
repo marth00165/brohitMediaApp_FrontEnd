@@ -20,6 +20,11 @@ const avatarArr = [Avatar1, Avatar2];
 
 const styles = (theme) => ({
   ...theme.spreadThis,
+  image: {
+    borderRadius: "50%",
+    height: "150px",
+    width: "150px",
+  },
 });
 
 class Signup extends Component {
@@ -69,11 +74,7 @@ class Signup extends Component {
       <Grid container className={classes.form}>
         <Grid item sm />
         <Grid item sm>
-          <img
-            className={classes.image}
-            alt={"login"}
-            src={avatarArr[Math.floor(this.random(1, 3)) - 1]}
-          />
+          <img className={classes.image} alt={"login"} src={avatarArr[1]} />
           <Typography variant={"h2"} className={classes.pageTitle}>
             Signup
           </Typography>
