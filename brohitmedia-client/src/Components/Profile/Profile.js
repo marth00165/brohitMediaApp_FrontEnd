@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import { uploadImage, logoutUser } from "../../redux/actions/userActions";
 import EditDetails from "./EditDetails.js";
+import ProfileSkeleton from "../../util/ProfileSkeleton";
 
 // MUI Stuff
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -140,7 +141,7 @@ class Profile extends Component {
         </Paper>
       )
     ) : (
-      <p>loading...</p>
+      <ProfileSkeleton />
     );
     return profileMarkUp;
   }

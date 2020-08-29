@@ -4,6 +4,7 @@ import axios from "axios";
 import Post from "../Components/Post/Post";
 import StaticProfile from "../Components/Profile/StaticProfile";
 import Grid from "@material-ui/core/Grid";
+import PostSkeleton from "../util/PostSkeleton";
 
 import { connect } from "react-redux";
 import { getUserData } from "../redux/actions/dataActions";
@@ -32,7 +33,7 @@ class User extends Component {
     const { posts, loading } = this.props.data;
     const { postIdParam } = this.state;
     const postsMarkup = loading ? (
-      <p>Loading....</p>
+      <PostSkeleton />
     ) : posts === null ? (
       <p>No Posts from user</p>
     ) : !postIdParam ? (
